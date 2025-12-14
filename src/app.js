@@ -5,10 +5,9 @@ const pool = require("./config/database") ;
 const app = express() ;
 app.use(express.json()) ;
 
-app.use((req, res, next) => {
-  console.log("➡️", req.method, req.path);
-  next();
-});
+const swaggerUi = require("swagger-ui-express") ;
+const swaggerSpec = require("./config/swagger") ;
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec)) ;
 
 const userRoutes = require("./routes/userRoutes") ;
 app.use("/users", userRoutes) ;
