@@ -5,11 +5,19 @@ const pool = require("./config/database") ;
 const app = express() ;
 app.use(express.json()) ;
 
+app.use((req, res, next) => {
+  console.log("➡️", req.method, req.path);
+  next();
+});
+
 const userRoutes = require("./routes/userRoutes") ;
 app.use("/users", userRoutes) ;
 
 const authRoutes = require("./routes/authRoutes") ;
 app.use("/auth", authRoutes) ;
+
+const projectRoutes = require("./routes/projectRoutes") ;
+app.use("/projects", projectRoutes) ;
 
 app.get("/health", async (req, res) => {
     try {
